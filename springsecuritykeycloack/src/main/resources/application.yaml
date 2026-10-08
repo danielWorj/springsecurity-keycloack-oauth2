@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: springsecuritykeycloack
+
+    # security config
+    security:
+      oauth2 :
+        resourceserver :
+          jwt :
+            issuer-uri:http://localhost:9090/realms/SpringSecurityKeycloackRealm # url qui va delivrer le token, recupere sur l'interface de keycloak <<issue>>
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs # recuperer sur l'interface de keycloak <<jwks_uri>>
+
+    # JWT Config
+    jwt:
+      auth:
+        converter:
+          resource-id: my-app-client #nom du client defini sur keycloack
+          principal-attribute : principal_ursername
+
+    server:
+      port: 8085
